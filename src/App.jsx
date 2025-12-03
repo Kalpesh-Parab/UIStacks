@@ -1,11 +1,18 @@
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from 'react-router-dom';
+import Sliders from './pages/sliders/Sliders';
 
 function App() {
   return (
-    <div>
-      <h1>Welcome to UIStacks</h1>
-      <p>Your personal React component showcase</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Sliders />} />
+      </Routes>
+    </Router>
   );
 }
 

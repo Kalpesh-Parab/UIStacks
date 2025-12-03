@@ -1,0 +1,449 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.carousel {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+
+  .list {
+    .item {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .content {
+        position: absolute;
+        top: 20vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60vw;
+        padding-right: 20vw;
+        color: #fff;
+        text-shadow: 0 0.26vw 0.52vw #0004;
+        box-sizing: border-box;
+
+        .author {
+          font-weight: bold;
+          letter-spacing: 0.52vw;
+        }
+
+        .title,
+        .topic {
+          font-size: 5vw;
+          font-weight: bold;
+          line-height: 1.3em;
+        }
+
+        .topic {
+          color: #f1683a;
+        }
+
+        .des {
+          margin-top: 1vw;
+          font-size: 1.1vw;
+          line-height: 1.4em;
+        }
+
+        .buttons {
+          display: grid;
+          grid-template-columns: repeat(2, 7vw);
+          grid-template-rows: 2.1vw;
+          gap: 0.3vw;
+          margin-top: 1.2vw;
+
+          button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            border: none;
+            background-color: #eeeeee71;
+            font-weight: 500;
+            font-family: Poppins;
+            font-size: 0.9vw;
+
+            &:nth-child(2) {
+              background-color: transparent;
+              border: 1px solid #fff;
+              color: #eee;
+            }
+          }
+        }
+      }
+    }
+
+    .item:nth-child(1) {
+      z-index: 1;
+
+      .content {
+        .author,
+        .title,
+        .topic,
+        .des,
+        .buttons {
+          transform: translateY(2.6vw);
+          filter: blur(1vw);
+          opacity: 0;
+          animation: showContent 0.5s 1s linear 1 forwards;
+        }
+
+        .title {
+          animation-delay: 1.2s !important;
+        }
+        .topic {
+          animation-delay: 1.4s !important;
+        }
+        .des {
+          animation-delay: 1.6s !important;
+        }
+        .buttons {
+          animation-delay: 1.8s !important;
+        }
+      }
+    }
+  }
+
+  .thumbnail {
+    width: 35%;
+    overflow: hidden;
+    position: absolute;
+    bottom: 2.6vw;
+    right: 0%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 1vw;
+
+    .item {
+      width: 8vw;
+      height: 11.5vw;
+      flex-shrink: 0;
+      position: relative;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 1vw;
+      }
+
+      .content {
+        color: #fff;
+        position: absolute;
+        bottom: 0.5vw;
+        left: 0.5vw;
+        right: 0.5vw;
+
+        .title {
+          font-weight: 500;
+        }
+        .description {
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .arrows {
+    position: absolute;
+    top: 80vh;
+    right: 73%;
+    z-index: 100;
+    display: flex;
+    gap: 0.5vw;
+    align-items: center;
+    mix-blend-mode: difference;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2vw;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: none;
+      color: #fff;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 1.2vw;
+      transition: 0.5s;
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
+    }
+  }
+
+  .time {
+    position: absolute;
+    z-index: 1000;
+    width: 0%;
+    height: 0.15vw;
+    background-color: #f1683a;
+    left: 0;
+    top: 0;
+  }
+
+  &.next,
+  &.prev {
+    .time {
+      animation: runningTime 3.15s linear 1 forwards;
+    }
+  }
+
+  &.next {
+    .list .item:nth-child(1) img {
+      width: 8vw;
+      height: 11.5vw;
+      position: absolute;
+      bottom: 2.6vw;
+      left: 50%;
+      border-radius: 1.5vw;
+      animation: showImage 0.5s linear 1 forwards;
+    }
+
+    .thumbnail {
+      animation: effectNext 0.5s linear 1 forwards;
+
+      .item:last-child {
+        overflow: hidden;
+        animation: showThumbnail 0.5s linear 1 forwards;
+      }
+    }
+  }
+
+  &.prev {
+    .list .item:nth-child(2) {
+      z-index: 2;
+
+      img {
+        z-index: 100;
+        animation: outFrame 0.5s linear 1 forwards;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      .content .author,
+      .content .title,
+      .content .topic,
+      .content .des,
+      .content .buttons {
+        animation: contentOut 1.5s linear 1 forwards !important;
+      }
+    }
+
+    .thumbnail .item:first-child {
+      overflow: hidden;
+      opacity: 0;
+      animation: showThumbnail 0.5s linear 1 forwards;
+    }
+  }
+}
+
+// Animations
+@keyframes showContent {
+  to {
+    transform: translateY(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes showImage {
+  to {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+@keyframes effectNext {
+  from {
+    transform: translateX(7.8vw);
+  }
+}
+
+@keyframes showThumbnail {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes runningTime {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes outFrame {
+  to {
+    width: 8vw;
+    height: 11.5vw;
+    bottom: 2.6vw;
+    left: 50%;
+    border-radius: 1vw;
+  }
+}
+
+@keyframes contentOut {
+  to {
+    transform: translateY(-7.8vw);
+    filter: blur(1vw);
+    opacity: 0;
+  }
+}
+
+// 💻 Tablet (769px – 1280px)
+@media (max-width: 1280px) {
+  .carousel {
+    .list {
+      .item {
+        .content {
+          width: 75vw;
+          padding-right: 5vw;
+          top: 18vh;
+
+          .title,
+          .topic {
+            font-size: 6vw;
+          }
+
+          .des {
+            font-size: 2vw;
+          }
+
+          .buttons {
+            grid-template-columns: repeat(2, 18vw);
+            grid-template-rows: 5vw;
+            button {
+              font-size: 1.8vw;
+            }
+          }
+        }
+      }
+    }
+
+    .thumbnail {
+      width: 80%;
+      bottom: 3vw;
+
+      .item {
+        width: 15vw;
+        height: 20vw;
+
+        .content {
+          .title {
+            font-size: 1.6vw;
+          }
+          .description {
+            font-size: 1.4vw;
+          }
+        }
+      }
+    }
+
+    .arrows {
+      top: 83vh;
+      right: 60%;
+
+      button {
+        width: 3.5vw;
+        font-size: 2vw;
+      }
+    }
+
+    .time {
+      height: 0.3vw;
+    }
+  }
+}
+
+// 📱 Mobile (360px – 768px)
+@media (max-width: 768px) {
+  .carousel {
+    .list {
+      .item {
+        .content {
+          width: 85vw;
+          padding-right: 0;
+          top: 15vh;
+
+          .author {
+            font-size: 2.5vw;
+            letter-spacing: 1vw;
+          }
+
+          .title,
+          .topic {
+            font-size: 8vw;
+          }
+
+          .des {
+            font-size: 3.5vw;
+          }
+
+          .buttons {
+            grid-template-columns: repeat(2, 35vw);
+            grid-template-rows: 8vw;
+            button {
+              font-size: 3.2vw;
+            }
+          }
+        }
+      }
+    }
+
+    .thumbnail {
+      width: 90%;
+      bottom: 3vw;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .item {
+        width: 20vw;
+        height: 30vw;
+
+        .content {
+          .title {
+            font-size: 2.5vw;
+          }
+          .description {
+            font-size: 2vw;
+          }
+        }
+      }
+    }
+
+    .arrows {
+      top: 75vh;
+      right: 50%;
+      transform: translateX(50%);
+
+      button {
+        width: 5vw;
+        font-size: 4vw;
+      }
+    }
+
+    .time {
+      height: 0.6vw;
+    }
+  }
+}

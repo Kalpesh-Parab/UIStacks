@@ -1,0 +1,35 @@
+
+.SliderTwo {
+  width: 100%;
+  height: 150vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    text-align: center;
+    font-size: 4vw;
+  }
+
+  .circle-wrapper {
+    width: 22vw;
+    height: 22vw;
+    position: relative;
+
+    .circle-layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+
+      clip-path: circle(var(--radius) at center);
+      z-index: calc(var(--total) - var(--index));
+
+      /* Start fully rotated, no fade-in */
+      transform: rotate(calc(25deg * var(--index)));
+
+      will-change: transform;
+    }
+  }
+}
