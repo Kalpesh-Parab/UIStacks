@@ -39,15 +39,15 @@ const SliderTwo = () => {
       const viewportHeight = window.innerHeight;
 
       // Point where animation must end
-      const endPoint = viewportHeight * 0.3;
+      const endPoint = viewportHeight * 0.5;
 
       // Progress calculation (0 → 1)
-      let progress = 1 - rect.top / endPoint;
+      let progress = 1.7 - rect.top / endPoint;
       progress = Math.max(0, Math.min(1, progress));
 
       layers.forEach((layer) => {
         const index = Number(layer.style.getPropertyValue('--index'));
-        const initialRotation = 25 * index;
+        const initialRotation = 50 * index;
 
         const currentRotation = initialRotation * (1 - progress);
 
