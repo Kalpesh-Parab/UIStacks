@@ -1,7 +1,6 @@
 .scroll-video-container {
   position: relative;
   width: 100%;
-  height: 200vh; // replaced dynamically via JS
 
   video {
     position: sticky;
@@ -12,6 +11,6 @@
     pointer-events: none;
     user-select: none;
     display: block;
-    background: #000; // fallback
+    background: #000;
   }
 }
