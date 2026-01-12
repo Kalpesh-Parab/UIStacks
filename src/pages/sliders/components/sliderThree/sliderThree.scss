@@ -1,0 +1,16 @@
+.scroll-video-container {
+  position: relative;
+  width: 100%;
+
+  video {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    display: block;
+    background: #000;
+  }
+}
