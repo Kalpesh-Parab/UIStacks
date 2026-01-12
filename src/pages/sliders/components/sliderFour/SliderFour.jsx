@@ -84,7 +84,9 @@ const SliderFour = ({
         muted
         preload='metadata'
         playsInline
+        crossOrigin='anonymous'
       />
+
       <audio ref={audioRef} src={audioSrc} preload='metadata' />
     </div>
   );

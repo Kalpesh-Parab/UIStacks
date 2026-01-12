@@ -13,22 +13,31 @@ export function useVideoPreloader(videoUrls) {
       return;
     }
 
+    const markLoaded = () => {
+      loaded += 1;
+      setProgress(Math.round((loaded / total) * 100));
+
+      if (loaded >= total) {
+        setTimeout(() => setIsReady(true), 300);
+      }
+    };
+
     const videos = videoUrls.map((src) => {
       const video = document.createElement('video');
       video.src = src;
-      video.muted = true;
       video.preload = 'metadata';
+      video.muted = true;
+      video.crossOrigin = 'anonymous';
 
-      const onReady = () => {
-        loaded += 1;
-        setProgress(Math.round((loaded / total) * 100));
+      // ✅ SUCCESS
+      video.addEventListener('loadedmetadata', markLoaded, { once: true });
 
-        if (loaded === total) {
-          setTimeout(() => setIsReady(true), 300);
-        }
-      };
+      // ✅ FAILURE SAFETY (VERY IMPORTANT)
+      video.addEventListener('error', markLoaded, { once: true });
 
-      video.addEventListener('loadedmetadata', onReady, { once: true });
+      // ✅ TIMEOUT SAFETY (CDN stalls)
+      setTimeout(markLoaded, 4000);
+
       return video;
     });
 
