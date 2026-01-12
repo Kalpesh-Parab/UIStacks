@@ -23,6 +23,38 @@ import slide5 from '../../assets/slide5converted.mp4';
 import slide5audio_optimized from '../../assets/slide5audio_optimized.m4a';
 import slide6 from '../../assets/slide6converted.mp4';
 import slide6audio_optimized from '../../assets/slide6audio_optimized.m4a';
+import slide7 from '../../assets/slide7converted.mp4';
+import slide7audio_optimized from '../../assets/slide7audio_optimized.m4a';
+import slide8 from '../../assets/slide8converted.mp4';
+import slide8audio_optimized from '../../assets/slide8audio_optimized.m4a';
+import slide9 from '../../assets/slide9converted.mp4';
+import slide9audio_optimized from '../../assets/slide9audio_optimized.m4a';
+import slide10 from '../../assets/slide10converted.mp4';
+import slide10audio_optimized from '../../assets/slide10audio_optimized.m4a';
+import slide11 from '../../assets/slide11converted.mp4';
+import slide11audio_optimized from '../../assets/slide11audio_optimized.m4a';
+import slide12 from '../../assets/slide12converted.mp4';
+import slide12audio_optimized from '../../assets/slide12audio_optimized.m4a';
+import slide13 from '../../assets/slide13converted.mp4';
+import slide13audio_optimized from '../../assets/slide13audio_optimized.m4a';
+import slide14 from '../../assets/slide14converted.mp4';
+import slide14audio_optimized from '../../assets/slide14audio_optimized.m4a';
+import slide15 from '../../assets/slide15converted.mp4';
+import slide15audio_optimized from '../../assets/slide15audio_optimized.m4a';
+import slide16 from '../../assets/slide16converted.mp4';
+import slide16audio_optimized from '../../assets/slide16audio_optimized.m4a';
+import slide17 from '../../assets/slide17converted.mp4';
+import slide17audio_optimized from '../../assets/slide17audio_optimized.m4a';
+import slide18 from '../../assets/slide18converted.mp4';
+import slide18audio_optimized from '../../assets/slide18audio_optimized.m4a';
+import slide19 from '../../assets/slide19converted.mp4';
+import slide19audio_optimized from '../../assets/slide19audio_optimized.m4a';
+import slide20 from '../../assets/slide20converted.mp4';
+import slide20audio_optimized from '../../assets/slide20audio_optimized.m4a';
+import slide21 from '../../assets/slide21converted.mp4';
+import slide21audio_optimized from '../../assets/slide21audio_optimized.m4a';
+import slide22 from '../../assets/slide22converted.mp4';
+import slide22audio_optimized from '../../assets/slide22audio_optimized.m4a';
 
 const Sliders = () => {
   return (
@@ -67,6 +99,86 @@ const Sliders = () => {
       <SliderFour
         videoSrc={slide6}
         audioSrc={slide6audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide7}
+        audioSrc={slide7audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide8}
+        audioSrc={slide8audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide9}
+        audioSrc={slide9audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide10}
+        audioSrc={slide10audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide11}
+        audioSrc={slide11audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide12}
+        audioSrc={slide12audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide13}
+        audioSrc={slide13audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide14}
+        audioSrc={slide14audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide15}
+        audioSrc={slide15audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide16}
+        audioSrc={slide16audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide17}
+        audioSrc={slide17audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide18}
+        audioSrc={slide18audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide19}
+        audioSrc={slide19audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide20}
+        audioSrc={slide20audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide21}
+        audioSrc={slide21audio_optimized}
+        scrollHeight={2350}
+      />
+      <SliderFour
+        videoSrc={slide22}
+        audioSrc={slide22audio_optimized}
         scrollHeight={2350}
       />
 

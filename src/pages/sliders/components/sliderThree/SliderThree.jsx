@@ -66,11 +66,3 @@ export default SliderThree;
 
 // Note the command to convert videos
 // ffmpeg -i parallax3.mp4 -vf scale=960:-2 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p parallax3converted.mp4
-
-/*
-
-ffmpeg -i slide4.mp4 -vf scale=960:-2 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p slide4converted.mp4
-
-ffmpeg -i slide6converted.mp4 -vn -ar 48000 -ab 192k -acodec aac -movflags faststart slide6audio_optimized.m4a
-
-*/
