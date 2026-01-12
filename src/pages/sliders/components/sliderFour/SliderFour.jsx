@@ -4,88 +4,90 @@ import './sliderFour.scss';
 const SliderFour = ({
   videoSrc,
   audioSrc,
-  scrollHeight = 200, // vh
-  parallaxStrength = 40, // px
+  scrollHeight = 200,
+  parallaxStrength = 40,
 }) => {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
   const audioRef = useRef(null);
   const [duration, setDuration] = useState(1);
-  const userInteractedRef = useRef(false);
 
-  // Load video metadata
+  // Set container height + duration
   useEffect(() => {
     const video = videoRef.current;
-
     const onLoaded = () => {
       setDuration(video.duration || 1);
       containerRef.current.style.height = `${scrollHeight}vh`;
     };
-
     video.addEventListener('loadedmetadata', onLoaded);
     return () => video.removeEventListener('loadedmetadata', onLoaded);
   }, [scrollHeight]);
 
-  // Scroll scrub logic
+  // 🔥 LAZY BUFFER VIDEO BEFORE IT APPEARS
   useEffect(() => {
-    const container = containerRef.current;
     const video = videoRef.current;
-    const audio = audioRef.current;
+    if (!video) return;
 
-    if (!container || !video || !audio) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.load(); // start buffering
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '400px' }
+    );
 
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  // Scroll sync
+  useEffect(() => {
     const onScroll = () => {
-      userInteractedRef.current = true;
+      const container = containerRef.current;
+      const video = videoRef.current;
+      const audio = audioRef.current;
+      if (!container || !video || !audio) return;
 
       const rect = container.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      if (rect.top > 0) return;
+      if (rect.top > 0 || rect.bottom <= vh) return;
 
-      if (rect.bottom <= vh) {
-        video.currentTime = duration;
-        audio.currentTime = duration;
-        return;
+      const total = container.offsetHeight - vh;
+      const progress = Math.min(1, Math.abs(rect.top) / total);
+      const time = progress * duration;
+
+      video.currentTime = time;
+
+      if (Math.abs(audio.currentTime - time) > 0.2) {
+        audio.currentTime = time;
       }
 
-      const totalScrollable = container.offsetHeight - vh;
-      const scrolled = Math.abs(rect.top);
-      const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
-      const currentTime = progress * duration;
-
-      // Sync video + audio
-      video.currentTime = currentTime;
-
-      // Audio sync (guarded)
-      if (userInteractedRef.current) {
-        if (Math.abs(audio.currentTime - currentTime) > 0.15) {
-          audio.currentTime = currentTime;
-        }
-        audio.volume = 0.6;
-        audio.play().catch(() => {});
-      }
-
-      // Parallax effect
-      const translateY = (1 - progress) * parallaxStrength;
-      video.style.transform = `translateY(${translateY}px)`;
+      audio.volume = 0.6;
+      audio.play().catch(() => {});
+      video.style.transform = `translateY(${
+        (1 - progress) * parallaxStrength
+      }px)`;
     };
 
     window.addEventListener('scroll', onScroll);
-    onScroll();
-
     return () => window.removeEventListener('scroll', onScroll);
   }, [duration, parallaxStrength]);
 
   return (
     <div className='scroll-video-audio-container' ref={containerRef}>
-      <video ref={videoRef} src={videoSrc} muted preload='auto' playsInline />
-
-      <audio ref={audioRef} src={audioSrc} preload='auto' playsInline />
+      <video
+        ref={videoRef}
+        src={videoSrc}
+        muted
+        preload='metadata'
+        playsInline
+      />
+      <audio ref={audioRef} src={audioSrc} preload='metadata' />
     </div>
   );
 };
 
 export default SliderFour;
-
-// Note the command to convert audio
-//ffmpeg -i parallax4converted.mp4 -vn -ar 48000 -ab 192k -acodec aac -movflags faststart parallax4audio_optimized.m4a

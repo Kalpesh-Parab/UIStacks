@@ -1,4 +1,8 @@
 import SliderFour from './components/sliderFour/SliderFour';
+import { useEffect, useState } from 'react';
+
+import LoadingScreen from './LoadingScreen';
+import { useVideoPreloader } from './useVideoPreloader';
 import slide0video from '../../assets/slide0converted.mp4';
 import slide0audio_optimized from '../../assets/slide0audio_optimized.m4a';
 import slide1audio_optimized from '../../assets/slide1audio_optimized.m4a';
@@ -165,9 +169,46 @@ const sliderFourData = [
   },
 ];
 
+const heroVideoUrls = sliderFourData.slice(0, 2).map((v) => v.video);
+
 const Sliders = () => {
+  const [showScrollHint, setShowScrollHint] = useState(true);
+  const { progress, isReady } = useVideoPreloader(heroVideoUrls);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollHint(false);
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (!isReady) {
+    return <LoadingScreen progress={progress} />;
+  }
+
   return (
     <div>
+      {showScrollHint && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 20,
+            width: '100%',
+            textAlign: 'center',
+            zIndex: 10,
+            color: '#fff',
+            pointerEvents: 'none',
+            transition: 'opacity 0.6s ease',
+          }}
+        >
+          ↓ Scroll to begin the journey
+        </div>
+      )}
+
       {sliderFourData.map((item) => (
         <SliderFour
           key={item.id}
