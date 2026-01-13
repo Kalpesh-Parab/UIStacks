@@ -23,28 +23,16 @@ const SliderFour = ({
     return () => video.removeEventListener('loadedmetadata', onLoaded);
   }, [scrollHeight]);
 
-  // 🔥 LAZY BUFFER VIDEO BEFORE IT APPEARS
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.load(); // start buffering
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '400px' }
-    );
+useEffect(() => {
+  let rafId = null;
 
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
+  const onScroll = () => {
+    if (rafId) return;
 
-  // Scroll sync
-  useEffect(() => {
-    const onScroll = () => {
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+
       const container = containerRef.current;
       const video = videoRef.current;
       const audio = audioRef.current;
@@ -59,22 +47,31 @@ const SliderFour = ({
       const progress = Math.min(1, Math.abs(rect.top) / total);
       const time = progress * duration;
 
-      video.currentTime = time;
+      // ⚠️ Only update when difference is meaningful
+      if (Math.abs(video.currentTime - time) > 0.04) {
+        video.currentTime = time;
+      }
 
-      if (Math.abs(audio.currentTime - time) > 0.2) {
+      if (Math.abs(audio.currentTime - time) > 0.15) {
         audio.currentTime = time;
       }
 
       audio.volume = 0.6;
       audio.play().catch(() => {});
+
       video.style.transform = `translateY(${
         (1 - progress) * parallaxStrength
       }px)`;
-    };
+    });
+  };
 
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [duration, parallaxStrength]);
+  window.addEventListener('scroll', onScroll);
+  return () => {
+    window.removeEventListener('scroll', onScroll);
+    cancelAnimationFrame(rafId);
+  };
+}, [duration, parallaxStrength]);
+
 
   return (
     <div className='scroll-video-audio-container' ref={containerRef}>
