@@ -1,0 +1,26 @@
+.sliders-wrapper {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+
+  /* smooth momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+.sliders-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.video-loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: black;
+  color: white;
+  z-index: 2;
+  font-size: 13px;
+  letter-spacing: 2px;
+  opacity: 0.85;
+}

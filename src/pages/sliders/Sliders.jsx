@@ -1,199 +1,77 @@
-import SliderFour from './components/sliderFour/SliderFour';
-import { useEffect, useState } from 'react';
+import SliderFive from './components/sliderFive/SliderFive';
+import './sliders.scss';
 
-import LoadingScreen from './LoadingScreen';
-import { useVideoPreloader } from './useVideoPreloader';
-import slide0audio_optimized from '../../assets/slide0audio_optimized.m4a';
-import slide1audio_optimized from '../../assets/slide1audio_optimized.m4a';
-import slide2audio_optimized from '../../assets/slide2audio_optimized.m4a';
-import slide3audio_optimized from '../../assets/slide3audio_optimized.m4a';
-import slide4audio_optimized from '../../assets/slide4audio_optimized.m4a';
-import slide5audio_optimized from '../../assets/slide5audio_optimized.m4a';
-import slide6audio_optimized from '../../assets/slide6audio_optimized.m4a';
-import slide7audio_optimized from '../../assets/slide7audio_optimized.m4a';
-import slide8audio_optimized from '../../assets/slide8audio_optimized.m4a';
-import slide9audio_optimized from '../../assets/slide9audio_optimized.m4a';
-import slide10audio_optimized from '../../assets/slide10audio_optimized.m4a';
-import slide11audio_optimized from '../../assets/slide11audio_optimized.m4a';
-import slide12audio_optimized from '../../assets/slide12audio_optimized.m4a';
-import slide13audio_optimized from '../../assets/slide13audio_optimized.m4a';
-import slide14audio_optimized from '../../assets/slide14audio_optimized.m4a';
-import slide15audio_optimized from '../../assets/slide15audio_optimized.m4a';
-import slide16audio_optimized from '../../assets/slide16audio_optimized.m4a';
-import slide17audio_optimized from '../../assets/slide17audio_optimized.m4a';
-import slide18audio_optimized from '../../assets/slide18audio_optimized.m4a';
-import slide19audio_optimized from '../../assets/slide19audio_optimized.m4a';
-import slide20audio_optimized from '../../assets/slide20audio_optimized.m4a';
-import slide21audio_optimized from '../../assets/slide21audio_optimized.m4a';
-import slide22audio_optimized from '../../assets/slide22audio_optimized.m4a';
-
-// 🎯 DATA SOURCE (local + CDN mixed safely)
-const sliderFourData = [
+const data = [
   {
-    id: 0,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290984/slide0converted_m6bq5a.mp4",
-    audio: slide0audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907563/Frame_0_r6ob9d.mp4',
   },
   {
-    id: 1,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290952/slide1converted_iizv4x.mp4",
-    audio: slide1audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907610/Slide_1_zsqexl.mp4',
   },
   {
-    id: 2,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290979/slide2converted_t5d79b.mp4",
-    audio: slide2audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907607/slide_2_xyi3vx.mp4',
   },
   {
-    id: 3,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290975/slide3converted_puuab1.mp4",
-    audio: slide3audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907616/Slide_3_maevyp.mp4',
   },
   {
-    id: 4,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290962/slide4converted_qktidx.mp4",
-    audio: slide4audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907616/Slide_4_lnjbxe.mp4',
   },
   {
-    id: 5,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290954/slide5converted_cq1gfs.mp4",
-    audio: slide5audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907618/Slide_5_tzatzi.mp4',
   },
   {
-    id: 6,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290987/slide6converted_hks2p6.mp4",
-    audio: slide6audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907617/Slide_6_imgwv7.mp4',
   },
   {
-    id: 7,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290900/slide7converted_f4jak0.mp4",
-    audio: slide7audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907601/Slide_7_mqt6my.mp4',
   },
   {
-    id: 8,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290959/slide8converted_kp2igw.mp4",
-    audio: slide8audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907598/Slide_8_vdwzzt.mp4',
   },
   {
-    id: 9,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290972/slide9converted_x75v2i.mp4",
-    audio: slide9audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907621/Slide_9_yoa6rw.mp4',
   },
   {
-    id: 10,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290961/slide10converted_dkcqus.mp4",
-    audio: slide10audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907623/Slide_10_jifzcn.mp4',
   },
   {
-    id: 11,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290896/slide11converted_nok4ke.mp4",
-    audio: slide11audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907539/Slide_11_g52i9l.mp4',
   },
   {
-    id: 12,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290980/slide12converted_y3ohvf.mp4",
-    audio: slide12audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907624/Slide_12_jzrpcz.mp4',
   },
   {
-    id: 13,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290923/slide13converted_v0jtqu.mp4",
-    audio: slide13audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907542/Slide_13_fxoz6f.mp4',
   },
   {
-    id: 14,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290922/slide14converted_igaplc.mp4",
-    audio: slide14audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907559/Slide_14_tnvqby.mp4',
   },
   {
-    id: 15,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290972/slide15converted_iik5ot.mp4",
-    audio: slide15audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907612/Slide_15_j8qqoz.mp4',
   },
   {
-    id: 16,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290966/slide16converted_qzdcpk.mp4",
-    audio: slide16audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907617/Slide_16_a0ln1x.mp4',
   },
   {
-    id: 17,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290932/slide17converted_ftloym.mp4",
-    audio: slide17audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907611/Slide_17_brqfwa.mp4',
   },
   {
-    id: 18,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290973/slide18converted_biwdcm.mp4",
-    audio: slide18audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768907519/Slide_18_kod0xo.mp4',
   },
   {
-    id: 19,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290972/slide19converted_jcobqh.mp4",
-    audio: slide19audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768910743/Slide_20_cplb0u.mp4',
   },
   {
-    id: 20,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290980/slide20converted_zpkjcb.mp4",
-    audio: slide20audio_optimized,
-  },
-  {
-    id: 21,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290939/slide21converted_lv9hpn.mp4",
-    audio: slide21audio_optimized,
-  },
-  {
-    id: 22,
-    video: "https://res.cloudinary.com/djhfark2q/video/upload/v1768290944/slide22converted_yynitf.mp4",
-    audio: slide22audio_optimized,
+    url: 'https://res.cloudinary.com/djhfark2q/video/upload/q_auto,f_auto,vc_auto/v1768910742/Slide_22_ypedzh.mp4',
   },
 ];
 
-
-const heroVideoUrls = sliderFourData.slice(0, 2).map((v) => v.video);
-
 const Sliders = () => {
-  const [showScrollHint, setShowScrollHint] = useState(true);
-  const { progress, isReady } = useVideoPreloader(heroVideoUrls);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 100) {
-        setShowScrollHint(false);
-        window.removeEventListener('scroll', onScroll);
-      }
-    };
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  if (!isReady) {
-    return <LoadingScreen progress={progress} />;
-  }
-
   return (
-    <div>
-      {showScrollHint && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 20,
-            width: '100%',
-            textAlign: 'center',
-            zIndex: 10,
-            color: '#fff',
-            pointerEvents: 'none',
-            transition: 'opacity 0.6s ease',
-          }}
-        >
-          ↓ Scroll to begin the journey
-        </div>
-      )}
-
-      {sliderFourData.map((item) => (
-        <SliderFour
-          key={item.id}
-          videoSrc={item.video}
-          audioSrc={item.audio}
-          scrollHeight={2350}
-        />
+    <div className='sliders-wrapper'>
+      {data.map((item, index) => (
+        <SliderFive key={index} videoSrc={item.url} />
       ))}
     </div>
   );

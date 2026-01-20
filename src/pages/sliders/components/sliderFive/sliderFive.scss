@@ -1,0 +1,62 @@
+.SliderFive {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.slider-video {
+  width: 100%;
+  height: 100%;
+  object-fit: unset;
+  cursor: pointer;
+}
+
+.video-loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: black;
+  color: white;
+  z-index: 2;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.mute-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: white;
+  opacity: 0.85;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -10px);
+  }
+}
