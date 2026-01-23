@@ -70,10 +70,12 @@ const data = [
 const Sliders = () => {
   return (
     <div className='sliders-wrapper'>
-      {data.map((item, index) => (
+      {/* {data.map((item, index) => (
         <SliderFive key={index} videoSrc={item.url} />
-      ))}
+      ))} */}
     </div>
+    
+
   );
 };
 
